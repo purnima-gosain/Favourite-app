@@ -1,23 +1,24 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_1/favourite/myFavourite.dart';
-import 'package:provider_1/provider/favourite.dart';
 
-class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+import '../provider/favourite.dart';
+
+class MyFavouriteItemScreen extends StatefulWidget {
+  const MyFavouriteItemScreen({Key? key}) : super(key: key);
 
   @override
-  State<FavouriteScreen> createState() => _FavouriteScreenState();
+  State<MyFavouriteItemScreen> createState() => _MyFavouriteItemScreenState();
 }
 
-class _FavouriteScreenState extends State<FavouriteScreen> {
-  List<int> selectedItem = [];
+class _MyFavouriteItemScreenState extends State<MyFavouriteItemScreen> {
   @override
   Widget build(BuildContext context) {
-    print('build');
+    final favouriteProvider = Provider.of<FavouriteItemProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Favourite Screen"),
+        title: const Text("My favourite"),
         actions: [
           InkWell(
               onTap: () {
@@ -33,7 +34,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         children: [
           Expanded(
             child: ListView.builder(
-                itemCount: 100,
+                itemCount: favouriteProvider.selectedItem.length,
                 itemBuilder: (context, index) {
                   return Consumer<FavouriteItemProvider>(
                       builder: (context, value, child) {
